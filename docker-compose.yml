@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  discord-bot:
+    build:
+      context: ./bot
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    volumes:
+      - ./bot:/app
+
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - ./bot:/app
+      - ./tests:/app/tests
+    env_file: .env.tests
+    command: ["python", "tests/dev_test.py"]
