@@ -17,5 +17,5 @@ services:
     volumes:
       - ./bot:/app
       - ./tests:/app/tests
-    env_file: .env.tests
+    env_file: .env.test
     command: ["python", "tests/dev_test.py"]
