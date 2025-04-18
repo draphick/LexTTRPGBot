@@ -1,12 +1,9 @@
 FROM python:3.11-slim
 
 WORKDIR /app
-COPY bot/ /app
-COPY tests/ /app/tests/
-COPY .env.tests /app/.env
-RUN pip install --no-cache-dir -r requirements.txt
+COPY . /app
+ENV PYTHONPATH=/app
 
-ENV CHARACTER_DIR=/app/tests/test_characters
-ENV PYTHON_PATH=.
+RUN pip install --no-cache-dir -r bot/requirements.txt
 
-CMD ["pytest"]
+CMD ["python", "tests/dev_test.py"]
