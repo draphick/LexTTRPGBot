@@ -18,4 +18,4 @@ services:
       - ./bot:/app
       - ./tests:/app/tests
     env_file: .env.test
-    command: ["python", "tests/dev_test.py"]
+    command: ["python", "/app/tests/dev_test.py"]

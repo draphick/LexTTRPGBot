@@ -34,9 +34,9 @@ def format_character_info():
     if not characters:
         result += "No character sheets are currently loaded. "
     else:
-        result += "Here are the current characters: "
+        result += "Here are the current characters: \n"
         for char in characters:
-            result += f"🎭 {char.get('name', 'Unknown')}:"
+            result += f"{char.get('name', 'Unknown')}:"
             for key, value in char.items():
                 if key not in ("name", "discord_id"):
                     val = ", ".join(value) if isinstance(value, list) else value

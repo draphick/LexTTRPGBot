@@ -129,6 +129,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.test
 .venv
 env/
 venv/
@@ -175,3 +176,4 @@ cython_debug/
 
 # Raph stuff
 .notes.md
+tests/test_characters

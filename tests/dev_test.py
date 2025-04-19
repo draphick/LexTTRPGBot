@@ -1,56 +1,67 @@
-import sys
-import os
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from bot.character_loader import (
+from character_loader import (
     create_character,
     load_all_characters,
     get_character_by_name_and_user,
     get_default_character_by_discord_id,
     format_character_info
 )
+from config import CHARACTER_DIR
 
 def test_create_characters():
-    print("Creating characters...")
+    print("test_create_characters")
     import os
-    if os.path.exists("characters/testone.json"):
-        print("Test characters already exist. Skipping creation.")
-        return
-    try:
+    if not os.path.exists(f"{CHARACTER_DIR}/testone.json"):
+        print("testone")
         create_character("TestOne", 1111)
-        create_character("TestTwo", 1111)
+    if not os.path.exists(f"{CHARACTER_DIR}/testtwo.json"):
+        print("testtwo")
+        create_character("TestTwo", 2222)
+    if not os.path.exists(f"{CHARACTER_DIR}/testonea.json"):
+        print("testonea")
+        create_character("TestOneA", 1111)
+    if not os.path.exists(f"{CHARACTER_DIR}/testthree.json"):
+        print("testthree")
+        create_character("TestThree", 3333)
+
+def test_duplicate_name_different_discord_user_create_characters():
+    print("test_duplicate_name_different_discord_user_create_characters")
+    try:
+        create_character("TestOne", 2222)
     except Exception as e:
         print(f"Character creation error: {e}")
 
-def test_loading():
-    print("\nLoaded characters:")
+def test_duplicate_name_same_discord_user_create_characters():
+    print("test_duplicate_name_same_discord_user_create_characters")
+    try:
+        create_character("TestOne", 1111)
+    except Exception as e:
+        print(f"Character creation error: {e}")
+
+def test_load_all_characters():
+    print("\ntest_load_all_characters")
     characters = load_all_characters()
     for c in characters:
         print(f" - {c.get('name')} (ID: {c.get('discord_id')})")
 
-def test_lookup():
-    print("\nLooking up characters...")
+def test_get_character_by_name_and_user():
+    print("\ntest_get_character_by_name_and_user")
     found = get_character_by_name_and_user("TestOne", 1111)
     print("Found:", found["name"] if found else "None")
 
+def test_get_default_character_by_discord_id():
+    print("\ntest_get_default_character_by_discord_id")
     fallback = get_default_character_by_discord_id(1111)
     print("Fallback:", fallback["name"] if fallback else "None")
 
-def test_system_prompt():
-    print("\nFormatted system prompt:")
+def test_format_character_info():
+    print("\ntest_system_prompt")
     print(format_character_info())
-
-def test_parse_message(msg):
-    import re
-    match = re.match(r"\[([\w\s]+)\]", msg)
-    char = match.group(1).strip() if match else "default"
-    content = re.sub(r'^\[.*?\]\s*', '', msg)
-    print(f"Character: {char} | Content: {content}")
 
 if __name__ == "__main__":
     test_create_characters()
-    test_loading()
-    test_lookup()
-    test_system_prompt()
-    test_parse_message("[Mei] I attack the ghoul with my flashlight.")
+    test_duplicate_name_different_discord_user_create_characters()
+    test_duplicate_name_same_discord_user_create_characters()
+    test_load_all_characters()
+    test_get_character_by_name_and_user()
+    test_get_default_character_by_discord_id()
+    test_format_character_info()
