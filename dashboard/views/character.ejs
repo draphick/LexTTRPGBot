@@ -1,0 +1,8 @@
+<h1><%= character.name %>'s Sheet</h1>
+<ul>
+  <% for (let key in character) {
+       if (key !== 'name') { %>
+    <li><strong><%= key %>:</strong> <%= Array.isArray(character[key]) ? character[key].join(', ') : character[key] %></li>
+  <% }} %>
+</ul>
+<a href="/">Back to all characters</a>

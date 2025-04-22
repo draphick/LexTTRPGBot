@@ -1,0 +1,6 @@
+<h1>LexTTRPG Dashboard</h1>
+<ul>
+  <% characters.forEach(name => { %>
+    <li><a href="/character/<%= name %>"><%= name %></a></li>
+  <% }) %>
+</ul>

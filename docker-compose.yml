@@ -19,3 +19,13 @@ services:
       - ./tests:/app/tests
     env_file: .env.test
     command: ["python", "/app/tests/dev_test.py"]
+
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./bot/characters:/app/characters:ro
+    environment:
+      - CHARACTER_DIR=/app/characters
+
